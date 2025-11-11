@@ -34,7 +34,9 @@ add_python_export_library(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/numpy_eigen>
     $<INSTALL_INTERFACE:include>
+    $<INSTALL_INTERFACE:include/numpy_eigen>
     ${EIGEN3_INCLUDE_DIRS}
 )
 
@@ -48,6 +50,22 @@ target_link_libraries(${PROJECT_NAME}
 INCLUDE(src/autogen_test_files.cmake)
 add_python_export_library(${PROJECT_NAME}_test 
   ${PROJECT_SOURCE_DIR}/python/${PROJECT_NAME} ${AUTOGEN_TEST_FILES}
+)
+
+target_include_directories(${PROJECT_NAME}_test
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/numpy_eigen>
+    $<INSTALL_INTERFACE:include>
+    $<INSTALL_INTERFACE:include/numpy_eigen>
+    ${EIGEN3_INCLUDE_DIRS}
+)
+
+target_link_libraries(${PROJECT_NAME}_test
+  PUBLIC
+    ${PROJECT_NAME}
+    Boost::system
+    Eigen3::Eigen
 )
 
 #############
