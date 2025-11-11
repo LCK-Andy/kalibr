@@ -6,12 +6,12 @@
 
   <maintainer email="paul.furgale@mavt.ethz.ch">Paul Furgale</maintainer>
   <license>New BSD</license>
-  
+
   <buildtool_depend>ament_cmake</buildtool_depend>
   <depend>boost</depend>
-  
+
   <test_depend>ament_cmake_gtest</test_depend>
-  
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>
