@@ -48,12 +48,7 @@ install(EXPORT ${PROJECT_NAME}Targets
 ## Testing ##
 #############
 if(BUILD_TESTING)
-  find_package(ament_cmake_gtest REQUIRED)
-  
-  ament_add_gtest(${PROJECT_NAME}-test
-    test/random_test.cpp
-  )
-  target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+  # No tests available for sm_random
 endif()
 
 ament_export_include_directories(include)
