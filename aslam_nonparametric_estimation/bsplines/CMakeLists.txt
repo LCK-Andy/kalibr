@@ -1,33 +1,61 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 project(bsplines)
 
-find_package(catkin REQUIRED COMPONENTS
-  sm_common
-  sm_timing
-  sm_eigen
-  sm_kinematics
-  sparse_block_matrix
-)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-catkin_package(
-  LIBRARIES ${PROJECT_NAME}
-  INCLUDE_DIRS include
-)
+# Set CMake policy for Boost
+cmake_policy(SET CMP0167 OLD)
 
-include_directories(include ${catkin_INCLUDE_DIRS})
+find_package(ament_cmake REQUIRED)
+find_package(sm_common REQUIRED)
+find_package(sm_timing REQUIRED)
+find_package(sm_eigen REQUIRED)
+find_package(sm_kinematics REQUIRED)
+find_package(sparse_block_matrix REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 add_library(${PROJECT_NAME} 
   src/BSpline.cpp
   src/BSplinePose.cpp
+  src/DiffManifoldBSpline.cpp
 )
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+
+target_include_directories(${PROJECT_NAME}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
+
+target_link_libraries(${PROJECT_NAME}
+  PUBLIC
+    sm_common::sm_common
+    sm_timing::sm_timing
+    sm_eigen::sm_eigen
+    sm_kinematics::sm_kinematics
+    sparse_block_matrix::sparse_block_matrix
+    Eigen3::Eigen
+    ${SUITESPARSE_LIBRARIES}
+    TBB::tbb
+)
+
+##################
+## Installation ##
+##################
 
 install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  EXPORT ${PROJECT_NAME}Targets
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
 )
 
 install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  DESTINATION include/${PROJECT_NAME}
 )
+
+ament_export_targets(${PROJECT_NAME}Targets HAS_LIBRARY_TARGET)
+ament_export_include_directories(include)
+ament_export_dependencies(sm_common sm_timing sm_eigen sm_kinematics sparse_block_matrix Eigen3)
+
+ament_package()

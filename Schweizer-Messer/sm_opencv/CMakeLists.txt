@@ -9,7 +9,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(ament_cmake REQUIRED)
 find_package(sm_common REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system serialization)
+find_package(OpenCV REQUIRED)
 
 add_definitions(-D__STRICT_ANSI__)
 
@@ -18,5 +19,6 @@ install(DIRECTORY include/
 )
 
 ament_export_include_directories(include)
+ament_export_dependencies(sm_common Boost OpenCV)
 
 ament_package()

@@ -75,7 +75,9 @@ namespace {
   template<>
   struct IntType< long >
   {
-      static const int intType = CHOLMOD_INTLONG;
+      // CHOLMOD_INTLONG was removed in newer SuiteSparse versions
+      // Use CHOLMOD_INT for compatibility
+      static const int intType = CHOLMOD_INT;
   };
   template<>
   struct IntType< int >

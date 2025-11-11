@@ -1,33 +1,23 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 project(aslam_backend)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(catkin REQUIRED COMPONENTS
-  sparse_block_matrix
-  sm_boost
-  sm_random
-  sm_timing
-  sm_logging
-  sm_property_tree
-)
-find_package(Boost REQUIRED COMPONENTS system thread)
+# Set CMake policy for Boost
+cmake_policy(SET CMP0167 OLD)
+
+find_package(ament_cmake REQUIRED)
+find_package(sparse_block_matrix REQUIRED)
+find_package(sm_boost REQUIRED)
+find_package(sm_random REQUIRED)
+find_package(sm_timing REQUIRED)
+find_package(sm_logging REQUIRED)
+find_package(sm_property_tree REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system thread serialization)
 find_package(Eigen3 REQUIRED)
-
-catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS
-    sparse_block_matrix
-    sm_boost
-    sm_random
-    sm_timing
-    sm_logging
-    sm_property_tree
-  DEPENDS Boost
-)
-
-include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS})
+find_package(SuiteSparse REQUIRED)
+find_package(TBB REQUIRED)
 
 add_library(${PROJECT_NAME}
   src/MEstimatorPolicies.cpp
@@ -61,18 +51,41 @@ add_library(${PROJECT_NAME}
   src/DogLegTrustRegionPolicy.cpp
   src/Optimizer2.cpp
 )
-target_link_libraries(${PROJECT_NAME}
-  ${Boost_LIBRARIES}
-  ${TBB_LIBRARIES}
-  ${CHOLMOD_LIBRARY}
-  ${SUITESPARSE_LIBRARIES}
-  ${catkin_LIBRARIES}
+
+target_include_directories(${PROJECT_NAME}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
 )
 
-if(CATKIN_ENABLE_TESTING)
+target_link_libraries(${PROJECT_NAME}
+  PUBLIC
+    sparse_block_matrix::sparse_block_matrix
+    sm_boost::sm_boost
+    sm_random::sm_random
+    sm_timing::sm_timing
+    sm_logging::sm_logging
+    sm_property_tree::sm_property_tree
+    Boost::system
+    Boost::thread
+    Boost::serialization
+    Eigen3::Eigen
+    ${SUITESPARSE_LIBRARIES}
+    TBB::tbb
+)
+
+##############
+## Testing ##
+##############
+
+if(BUILD_TESTING)
+  enable_testing()
+  find_package(ament_cmake_gtest REQUIRED)
+  
   # Avoid clash with tr1::tuple: https://code.google.com/p/googletest/source/browse/trunk/README?r=589#257
   add_definitions(-DGTEST_USE_OWN_TR1_TUPLE=0)
-  catkin_add_gtest(${PROJECT_NAME}_test
+  
+  ament_add_gtest(${PROJECT_NAME}_test
     test/test_main.cpp
     test/JacobianContainer.cpp
     test/test_sparse_matrix_functions.cpp
@@ -84,16 +97,27 @@ if(CATKIN_ENABLE_TESTING)
     test/SparseMatrixTest.cpp
     test/LinearSolverTests.cpp
     test/ErrorTermTests.cpp
-    )
+  )
   target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
 endif()
 
+##################
+## Installation ##
+##################
+
 install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  EXPORT ${PROJECT_NAME}Targets
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
 )
 
 install(DIRECTORY include/
-  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
+  DESTINATION include
 )
+
+ament_export_targets(${PROJECT_NAME}Targets HAS_LIBRARY_TARGET)
+ament_export_include_directories(include)
+ament_export_dependencies(sparse_block_matrix sm_boost sm_random sm_timing sm_logging sm_property_tree Boost Eigen3)
+
+ament_package()
