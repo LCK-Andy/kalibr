@@ -1,7 +1,7 @@
 #ifndef SM_NUMERICAL_DIFF_HPP
 #define SM_NUMERICAL_DIFF_HPP
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <sm/assert_macros.hpp>
 #include <boost/function.hpp>
 #include <boost/bind.hpp>

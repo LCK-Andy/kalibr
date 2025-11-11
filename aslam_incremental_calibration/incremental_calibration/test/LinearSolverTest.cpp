@@ -26,7 +26,7 @@
 
 #include <gtest/gtest.h>
 
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 #include <Eigen/Dense>
 
 #include <cholmod.h>

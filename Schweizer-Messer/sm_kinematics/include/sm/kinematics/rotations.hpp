@@ -28,7 +28,7 @@
 #define SM_DEG2RAD_F 0.017453292519943f
 #define SM_RAD2DEG_F 57.295779513082323f
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 
 namespace sm
 {

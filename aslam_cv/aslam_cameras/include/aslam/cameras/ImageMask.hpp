@@ -2,7 +2,7 @@
 #define ASLAM_CAMERAS_IMAGE_MASK_HPP
 
 #include <sm/opencv/serialization.hpp>
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 #include <boost/serialization/split_member.hpp>
 #include <boost/serialization/version.hpp>
 #include <sm/boost/serialization.hpp>

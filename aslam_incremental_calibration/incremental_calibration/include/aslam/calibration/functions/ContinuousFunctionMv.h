@@ -21,7 +21,7 @@
            interface to the multivariate continuous functions
   */
 
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 
 #include "aslam/calibration/functions/Function.h"
 

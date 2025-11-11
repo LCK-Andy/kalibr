@@ -1,7 +1,7 @@
 #ifndef ASLAM_CAMERAS_NO_DISTORTION_HPP
 #define ASLAM_CAMERAS_NO_DISTORTION_HPP
 
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 #include "StaticAssert.hpp"
 namespace sm
 {

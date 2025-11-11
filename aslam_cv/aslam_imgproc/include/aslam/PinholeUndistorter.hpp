@@ -12,7 +12,7 @@
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/core/eigen.hpp>
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <Eigen/Dense>
 #include <aslam/UndistorterBase.hpp>
 

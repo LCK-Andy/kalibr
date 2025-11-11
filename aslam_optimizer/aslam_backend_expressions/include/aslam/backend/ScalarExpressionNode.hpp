@@ -3,7 +3,7 @@
 
 #include <aslam/backend/JacobianContainer.hpp>
 #include <boost/shared_ptr.hpp>
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <aslam/backend/VectorExpressionNode.hpp>
 
 namespace aslam

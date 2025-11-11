@@ -29,27 +29,30 @@
 #include <unordered_map>
 #include <vector>
 
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 
 #include <boost/shared_ptr.hpp>
 
 #include <aslam/backend/OptimizationProblemBase.hpp>
 
-namespace aslam {
-  namespace backend {
+namespace aslam
+{
+  namespace backend
+  {
 
     class DesignVariable;
     class ErrorTerm;
 
   }
-  namespace calibration {
+  namespace calibration
+  {
 
     /** The class OptimizationProblem implements a container for an optimization
         problem.
         \brief Optimization problem
       */
-    class OptimizationProblem :
-      public aslam::backend::OptimizationProblemBase {
+    class OptimizationProblem : public aslam::backend::OptimizationProblemBase
+    {
     public:
       /** \name Types definitions
         @{
@@ -59,28 +62,28 @@ namespace aslam {
       /// Design variable type (shared pointer)
       typedef boost::shared_ptr<DesignVariable> DesignVariableSP;
       /// Fast lookup container for design variables pointers
-      typedef std::unordered_map<const DesignVariable*, size_t>
-        DesignVariablesP;
+      typedef std::unordered_map<const DesignVariable *, size_t>
+          DesignVariablesP;
       /// Error term type
       typedef aslam::backend::ErrorTerm ErrorTerm;
       /// Error term type (shared pointer)
       typedef boost::shared_ptr<ErrorTerm> ErrorTermSP;
       /// Fast lookup container for error terms pointers
-      typedef std::unordered_set<const ErrorTerm*> ErrorTermsP;
+      typedef std::unordered_set<const ErrorTerm *> ErrorTermsP;
       /// Container for design variables (shared pointer)
       typedef std::vector<DesignVariableSP> DesignVariablesSP;
       /// Container for error terms (shared pointer)
       typedef std::vector<ErrorTermSP> ErrorTermsSP;
       /// Container for design variable groups
       typedef std::unordered_map<size_t, DesignVariablesSP>
-        DesignVariableSPGroups;
+          DesignVariableSPGroups;
       /// Container for design variables saving/restoring
-      typedef std::unordered_map<DesignVariable*, Eigen::MatrixXd>
-        DesignVariablesBackup;
+      typedef std::unordered_map<DesignVariable *, Eigen::MatrixXd>
+          DesignVariablesBackup;
       /// Self type
       typedef OptimizationProblem Self;
       /** @}
-        */
+       */
 
       /** \name Constructors/destructor
         @{
@@ -88,36 +91,36 @@ namespace aslam {
       /// Constructor
       OptimizationProblem();
       /// Copy constructor
-      OptimizationProblem(const Self& other) = delete;
+      OptimizationProblem(const Self &other) = delete;
       /// Copy assignment operator
-      OptimizationProblem& operator = (const Self& other) = delete;
+      OptimizationProblem &operator=(const Self &other) = delete;
       /// Move constructor
-      OptimizationProblem(Self&& other) = delete;
+      OptimizationProblem(Self &&other) = delete;
       /// Move assignment operator
-      OptimizationProblem& operator = (Self&& other) = delete;
+      OptimizationProblem &operator=(Self &&other) = delete;
       /// Destructor
       virtual ~OptimizationProblem();
       /** @}
-        */
+       */
 
       /** \name Methods
         @{
         */
       /// Inserts a design variable into the problem
-      void addDesignVariable(const DesignVariableSP& designVariable,
-        size_t groupId = 0);
+      void addDesignVariable(const DesignVariableSP &designVariable,
+                             size_t groupId = 0);
       /// Checks if a design variable is in the problem
-      bool isDesignVariableInProblem(const DesignVariable* designVariable)
-        const;
+      bool isDesignVariableInProblem(const DesignVariable *designVariable)
+          const;
       /// Inserts an error term into the problem
-      void addErrorTerm(const ErrorTermSP& errorTerm);
+      void addErrorTerm(const ErrorTermSP &errorTerm);
       /// Checks if an error term is in the problem
-      bool isErrorTermInProblem(const ErrorTerm* errorTerm) const;
+      bool isErrorTermInProblem(const ErrorTerm *errorTerm) const;
       /// Permutes the error terms
-      void permuteErrorTerms(const std::vector<size_t>& permutation);
+      void permuteErrorTerms(const std::vector<size_t> &permutation);
       /// Permutes the design variables in a group
-      void permuteDesignVariables(const std::vector<size_t>& permutation,
-        size_t groupId);
+      void permuteDesignVariables(const std::vector<size_t> &permutation,
+                                  size_t groupId);
       /// Saves the state of the design variables
       void saveDesignVariables();
       /// Restores the state of the design variables
@@ -125,31 +128,31 @@ namespace aslam {
       /// Clears the optimization problem
       void clear();
       /** @}
-        */
+       */
 
       /** \name Accessors
         @{
         */
       /// Returns the design variables groups
-      const DesignVariableSPGroups& getDesignVariablesGroups() const;
+      const DesignVariableSPGroups &getDesignVariablesGroups() const;
       /// Returns the design variables associated with a group
-      const DesignVariablesSP& getDesignVariablesGroup(size_t groupId) const;
+      const DesignVariablesSP &getDesignVariablesGroup(size_t groupId) const;
       /// Returns the error terms
-      const ErrorTermsSP& getErrorTerms() const;
+      const ErrorTermsSP &getErrorTerms() const;
       /// Returns the number of groups
       size_t getNumGroups() const;
       /// Sets the groups ordering
-      void setGroupsOrdering(const std::vector<size_t>& groupsOrdering);
+      void setGroupsOrdering(const std::vector<size_t> &groupsOrdering);
       /// Returns the groups ordering
-      const std::vector<size_t>& getGroupsOrdering() const;
+      const std::vector<size_t> &getGroupsOrdering() const;
       /// Returns the group id of a design variable
-      size_t getGroupId(const DesignVariable* designVariable) const;
+      size_t getGroupId(const DesignVariable *designVariable) const;
       /// Returns the dimension of a group
       size_t getGroupDim(size_t groupId) const;
       /// Checks if a group is in the problem
       bool isGroupInProblem(size_t groupId) const;
       /** @}
-        */
+       */
 
     protected:
       /** \name Protected methods
@@ -158,23 +161,23 @@ namespace aslam {
       /// Returns the number of design variables in the problem
       virtual size_t numDesignVariablesImplementation() const;
       /// Returns design variable indexed by idx
-      virtual DesignVariable* designVariableImplementation(size_t idx);
+      virtual DesignVariable *designVariableImplementation(size_t idx);
       /// Returns design variable indexed by idx
-      virtual const DesignVariable* designVariableImplementation(size_t idx)
-        const;
+      virtual const DesignVariable *designVariableImplementation(size_t idx)
+          const;
       /// Returns the number of error terms in the problem
       virtual size_t numErrorTermsImplementation() const;
       /// Returns error term indexed by idx
-      virtual ErrorTerm* errorTermImplementation(size_t idx);
+      virtual ErrorTerm *errorTermImplementation(size_t idx);
       /// Returns error term indexed by idx
-      virtual const ErrorTerm* errorTermImplementation(size_t idx) const;
+      virtual const ErrorTerm *errorTermImplementation(size_t idx) const;
       /// Returns error terms associated with a design variable
-      virtual void getErrorsImplementation(const DesignVariable* dv,
-        std::set<ErrorTerm*>& outErrorSet);
+      virtual void getErrorsImplementation(const DesignVariable *dv,
+                                           std::set<ErrorTerm *> &outErrorSet);
       /// Returns the group id an index falls in
-      void getGroupId(size_t idx, size_t& groupId, size_t& idxGroup) const;
+      void getGroupId(size_t idx, size_t &groupId, size_t &idxGroup) const;
       /** @}
-        */
+       */
 
       /** \name Protected members
         @{
@@ -192,8 +195,7 @@ namespace aslam {
       /// Backup for design variables
       DesignVariablesBackup _designVariablesBackup;
       /** @}
-        */
-
+       */
     };
 
   }

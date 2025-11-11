@@ -28,7 +28,7 @@
 #include <vector>
 #include <unordered_map>
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 
 #include <boost/shared_ptr.hpp>
 

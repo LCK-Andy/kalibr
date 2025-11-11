@@ -1,7 +1,7 @@
 #ifndef SM_HOMOGENEOUS_POINT_HPP
 #define SM_HOMOGENEOUS_POINT_HPP
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <sm/assert_macros.hpp>
 #include <sm/eigen/serialization.hpp>
 #include <boost/serialization/nvp.hpp>

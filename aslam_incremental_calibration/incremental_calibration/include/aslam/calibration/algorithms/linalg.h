@@ -27,7 +27,7 @@
 
 #include <limits>
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 
 struct cholmod_sparse_struct;
 typedef cholmod_sparse_struct cholmod_sparse;

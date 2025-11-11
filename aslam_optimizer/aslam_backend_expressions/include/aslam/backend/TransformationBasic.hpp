@@ -2,7 +2,7 @@
 #define ASLAM_BACKEND_TV_QUAT_HPP
 
 #include "TransformationExpressionNode.hpp"
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include "RotationExpression.hpp"
 #include "EuclideanExpression.hpp"
 

@@ -2,7 +2,7 @@
 #define ASLAM_GRID_CALIBRATION_TARGET_CHECKERBOARD_HPP
 
 #include <vector>
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 #include <opencv2/core/core.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/serialization/export.hpp>

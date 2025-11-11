@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <utility>
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <Eigen/StdVector>
 
 template <template <typename, typename> class Container, typename Type>

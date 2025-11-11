@@ -1,7 +1,7 @@
 #ifndef ASLAM_BACKEND_MAPPED_DV_QUAT_HPP
 #define ASLAM_BACKEND_MAPPED_DV_QUAT_HPP
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <aslam/backend/DesignVariable.hpp>
 #include "RotationExpression.hpp"
 #include "RotationExpressionNode.hpp"

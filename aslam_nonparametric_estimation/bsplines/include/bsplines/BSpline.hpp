@@ -13,7 +13,7 @@
 #define _BSPLINE_HPP
 #include <sparse_block_matrix/sparse_block_matrix.h>
 #include <vector>
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <sm/assert_macros.hpp>
 
 namespace bsplines

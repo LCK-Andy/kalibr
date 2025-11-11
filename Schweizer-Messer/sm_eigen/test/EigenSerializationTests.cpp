@@ -1,6 +1,6 @@
 // Bring in my package's API, which is what I'm testing
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 // Bring in gtest
 #include <gtest/gtest.h>
 #include <boost/cstdint.hpp>

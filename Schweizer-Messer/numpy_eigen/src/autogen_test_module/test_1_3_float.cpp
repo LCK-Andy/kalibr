@@ -1,4 +1,4 @@
-#include <Eigen3/Core>
+#include <Eigen/Core>
 
 #include <numpy_eigen/boost_python_headers.hpp>
 Eigen::Matrix<float, 1, 3> test_float_1_3(const Eigen::Matrix<float, 1, 3> &M)

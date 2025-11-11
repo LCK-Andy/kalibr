@@ -42,6 +42,7 @@ target_link_libraries(${PROJECT_NAME}
   PUBLIC
     Boost::system
     ${Boost_LIBRARIES}
+    Eigen3::Eigen
 )
 
 INCLUDE(src/autogen_test_files.cmake)

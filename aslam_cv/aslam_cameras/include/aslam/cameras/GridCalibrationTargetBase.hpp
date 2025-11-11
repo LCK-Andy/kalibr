@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <utility>
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 #include <opencv2/core/core.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <boost/shared_ptr.hpp>

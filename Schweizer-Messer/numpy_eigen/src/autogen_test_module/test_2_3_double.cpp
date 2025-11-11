@@ -1,4 +1,4 @@
-#include <Eigen3/Core>
+#include <Eigen/Core>
 
 #include <numpy_eigen/boost_python_headers.hpp>
 Eigen::Matrix<double, 2, 3> test_double_2_3(const Eigen::Matrix<double, 2, 3> &M)

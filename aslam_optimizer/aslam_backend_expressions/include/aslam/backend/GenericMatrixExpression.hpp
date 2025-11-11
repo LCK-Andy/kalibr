@@ -4,7 +4,7 @@
 #include <set>
 #include <type_traits>
 #include <boost/shared_ptr.hpp>
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <aslam/backend/JacobianContainer.hpp>
 #include "ScalarExpression.hpp"
 #include "GenericMatrixExpressionNode.hpp"

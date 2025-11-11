@@ -1,5 +1,5 @@
 #include <utility>
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <opencv2/core/core.hpp>
 #include <opencv2/core/eigen.hpp>
 #include <numpy_eigen/boost_python_headers.hpp>

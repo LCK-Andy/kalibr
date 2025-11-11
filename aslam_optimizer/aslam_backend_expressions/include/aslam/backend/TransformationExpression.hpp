@@ -1,7 +1,7 @@
 #ifndef ASLAM_TRANSFORMATION_EXPRESSION_HPP
 #define ASLAM_TRANSFORMATION_EXPRESSION_HPP
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <boost/shared_ptr.hpp>
 #include <aslam/backend/JacobianContainer.hpp>
 #include "RotationExpression.hpp"

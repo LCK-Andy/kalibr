@@ -1,7 +1,7 @@
 #ifndef SM_ROTATIONAL_KINEMATICS_HPP
 #define SM_ROTATIONAL_KINEMATICS_HPP
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <boost/shared_ptr.hpp>
 #include <sm/assert_macros.hpp>
 #include "rotations.hpp"

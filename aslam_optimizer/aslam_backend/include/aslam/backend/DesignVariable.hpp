@@ -5,7 +5,7 @@
 #include <unordered_set>
 #include <set>
 
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 
 #include <aslam/Exceptions.hpp>
 #include <boost/shared_ptr.hpp>

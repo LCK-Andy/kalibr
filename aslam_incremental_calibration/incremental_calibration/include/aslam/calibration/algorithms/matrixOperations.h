@@ -23,7 +23,7 @@
 #ifndef ASLAM_CALIBRATION_ALGORITHMS_MATRIX_OPERATIONS_H
 #define ASLAM_CALIBRATION_ALGORITHMS_MATRIX_OPERATIONS_H
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 
 namespace aslam
 {

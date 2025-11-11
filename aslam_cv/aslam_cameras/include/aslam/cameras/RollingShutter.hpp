@@ -2,7 +2,7 @@
 #define ASLAM_ROLLING_SHUTTER_HPP
 
 #include <aslam/Time.hpp>
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/split_member.hpp>
 #include <boost/serialization/version.hpp>

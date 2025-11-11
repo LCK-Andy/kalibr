@@ -22,7 +22,7 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <Eigen3/Core>
+#include <Eigen/Core>
 
 #include "matrix_structure.h"
 #include <sm/assert_macros.hpp>

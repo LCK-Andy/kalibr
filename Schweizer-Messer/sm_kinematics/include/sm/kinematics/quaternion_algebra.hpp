@@ -10,7 +10,7 @@
 
 #ifndef SM_QUATERNION_ALGEBRA_HPP
 #define SM_QUATERNION_ALGEBRA_HPP
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <Eigen/Geometry>
 
 namespace sm

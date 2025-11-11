@@ -1,4 +1,4 @@
-#include <Eigen3/Core>
+#include <Eigen/Core>
 
 #include <numpy_eigen/boost_python_headers.hpp>
 Eigen::Matrix<boost::uint8_t, Eigen::Dynamic, 2> test_uchar_D_2(const Eigen::Matrix<boost::uint8_t, Eigen::Dynamic, 2> &M)

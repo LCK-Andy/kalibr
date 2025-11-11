@@ -1,7 +1,7 @@
 #ifndef SM_EIGEN_STATIC_ASSERT_HPP
 #define SM_EIGEN_STATIC_ASSERT_HPP
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <sm/typetraits.hpp>
 
 // static assertion failing if the type \a TYPE is not a vector type of the given size

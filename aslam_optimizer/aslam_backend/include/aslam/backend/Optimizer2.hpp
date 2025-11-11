@@ -1,11 +1,10 @@
 #ifndef ASLAM_BACKEND_OPTIMIZER_2_HPP
 #define ASLAM_BACKEND_OPTIMIZER_2_HPP
 
-
 #include <boost/shared_ptr.hpp>
-//#include <boost/function.hpp>
+// #include <boost/function.hpp>
 #include <sm/assert_macros.hpp>
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 #include "Optimizer2Options.hpp"
 #include "backend.hpp"
 #include "OptimizationProblemBase.hpp"
@@ -18,13 +17,16 @@
 #include <aslam/backend/GaussNewtonTrustRegionPolicy.hpp>
 #include <aslam/backend/DogLegTrustRegionPolicy.hpp>
 
-namespace sm {
+namespace sm
+{
 
   class PropertyTree;
 
 }
-namespace aslam {
-  namespace backend {
+namespace aslam
+{
+  namespace backend
+  {
     class LinearSystemSolver;
 
     /**
@@ -48,17 +50,18 @@ namespace aslam {
      * IEEE TRANSACTIONS ON MAGNETICS, VOL. 44, NO. 7, JULY 2008
      *
      */
-    class Optimizer2 {
+    class Optimizer2
+    {
     public:
-        //  typedef sm::timing::Timer Timer;
+      //  typedef sm::timing::Timer Timer;
       /// Swapping this to the dummy timer will disable timing
-       typedef sm::timing::DummyTimer Timer;
+      typedef sm::timing::DummyTimer Timer;
       typedef sparse_block_matrix::SparseBlockMatrix<Eigen::MatrixXd> SparseBlockMatrix;
 
       SM_DEFINE_EXCEPTION(Exception, aslam::Exception);
 
-      Optimizer2(const Optimizer2Options& options = Optimizer2Options());
-      Optimizer2(const sm::PropertyTree& config, boost::shared_ptr<LinearSystemSolver> linearSystemSolver, boost::shared_ptr<TrustRegionPolicy> trustRegionPolicy);
+      Optimizer2(const Optimizer2Options &options = Optimizer2Options());
+      Optimizer2(const sm::PropertyTree &config, boost::shared_ptr<LinearSystemSolver> linearSystemSolver, boost::shared_ptr<TrustRegionPolicy> trustRegionPolicy);
       virtual ~Optimizer2();
 
       /// \brief Set up to work on the optimization problem.
@@ -69,37 +72,37 @@ namespace aslam {
 
       /// \brief initialize the linear solver specified in the optimizer options.
       void initializeLinearSolver();
-      
+
       void initializeTrustRegionPolicy();
 
       /// \brief Run the optimization
       SolutionReturnValue optimize();
 
       /// \brief Get the optimizer options.
-      Optimizer2Options& options();
+      Optimizer2Options &options();
 
       /// \brief return the reduced system dx
-      const Eigen::VectorXd& dx() const;
+      const Eigen::VectorXd &dx() const;
 
       /// The value of the objective function.
       double J() const;
 
       /// \brief compute the full covariance matrix. This is expensive.
-      void computeCovariances(SparseBlockMatrix& outP, double lambda);
+      void computeCovariances(SparseBlockMatrix &outP, double lambda);
 
       /// \brief compute only the diagonal covariance blocks.
-      void computeDiagonalCovariances(SparseBlockMatrix& outP, double lambda);
+      void computeDiagonalCovariances(SparseBlockMatrix &outP, double lambda);
 
       /// \brief compute only the covariance blocks associated with the block indices passed as an argument
-      void computeCovarianceBlocks(const std::vector<std::pair<int, int> >& blockIndices, SparseBlockMatrix& outP, double lambda);
+      void computeCovarianceBlocks(const std::vector<std::pair<int, int>> &blockIndices, SparseBlockMatrix &outP, double lambda);
 
-      void computeHessian(SparseBlockMatrix& outH, double lambda);
+      void computeHessian(SparseBlockMatrix &outH, double lambda);
 
       /// \brief Evaluate the error at the current state.
       double evaluateError(bool useMEstimator);
 
       /// \brief Get dense design variable i.
-      DesignVariable* designVariable(size_t i);
+      DesignVariable *designVariable(size_t i);
 
       /// \brief how many dense design variables are involved in the problem
       size_t numDesignVariables() const;
@@ -116,15 +119,13 @@ namespace aslam {
 
       /// Returns the linear solver
       template <class L>
-      L* getSolver();
+      L *getSolver();
 
+      const Matrix *getJacobian() const;
 
-        const Matrix * getJacobian() const;
-      
-        const LinearSystemSolver * getBaseSolver() const;
+      const LinearSystemSolver *getBaseSolver() const;
 
     private:
-
       /// \brief Zero the Gauss-Newton matrices.
       void zeroMatrices();
 
@@ -151,14 +152,13 @@ namespace aslam {
       boost::shared_ptr<OptimizationProblemBase> _problem;
 
       /// \brief all design variables...first the non-marginalized ones (the dense ones), then the marginalized ones.
-      std::vector<DesignVariable*> _designVariables;
+      std::vector<DesignVariable *> _designVariables;
 
       /// \brief all of the error terms involved in this problem
-      std::vector<ErrorTerm*> _errorTerms;
+      std::vector<ErrorTerm *> _errorTerms;
 
       /// \brief the current set of options
       Optimizer2Options _options;
-
     };
 
   } // namespace backend

@@ -28,26 +28,31 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 
 #include <aslam/backend/Optimizer2Options.hpp>
 
 #include "aslam/calibration/core/LinearSolverOptions.h"
 
-namespace sm {
+namespace sm
+{
 
   class PropertyTree;
 
 }
-namespace aslam {
-  namespace backend {
+namespace aslam
+{
+  namespace backend
+  {
 
     class GaussNewtonTrustRegionPolicy;
     class Optimizer2;
-    template<typename I> class CompressedColumnMatrix;
+    template <typename I>
+    class CompressedColumnMatrix;
 
   }
-  namespace calibration {
+  namespace calibration
+  {
 
     class OptimizationProblem;
     class IncrementalOptimizationProblem;
@@ -57,7 +62,8 @@ namespace aslam {
         for robotic calibration problems.
         \brief Incremental estimator
       */
-    class IncrementalEstimator {
+    class IncrementalEstimator
+    {
     public:
       /** \name Types definitions
         @{
@@ -68,7 +74,7 @@ namespace aslam {
       typedef boost::shared_ptr<OptimizationProblem> BatchSP;
       /// Incremental optimization problem (shared pointer)
       typedef boost::shared_ptr<IncrementalOptimizationProblem>
-        IncrementalOptimizationProblemSP;
+          IncrementalOptimizationProblemSP;
       /// Self type
       typedef IncrementalEstimator Self;
       /// Trust region type
@@ -80,11 +86,12 @@ namespace aslam {
       /// Optimizer type (shared_ptr)
       typedef boost::shared_ptr<Optimizer> OptimizerSP;
       /// Options for the incremental estimator
-      struct Options {
-        Options() :
-            infoGainDelta(0.2),
-            checkValidity(false),
-            verbose(false) {
+      struct Options
+      {
+        Options() : infoGainDelta(0.2),
+                    checkValidity(false),
+                    verbose(false)
+        {
         }
         /// Information gain delta
         double infoGainDelta;
@@ -94,7 +101,8 @@ namespace aslam {
         bool verbose;
       };
       /// Return value when adding a batch
-      struct ReturnValue {
+      struct ReturnValue
+      {
         /// True if the batch was accepted
         bool batchAccepted;
         /// Information gain
@@ -141,43 +149,43 @@ namespace aslam {
         double elapsedTime;
       };
       /** @}
-        */
+       */
 
       /** \name Constructors/destructor
         @{
         */
       /// Constructs estimator with group to marginalize and options
-      IncrementalEstimator(size_t groupId, const Options& options = Options(),
-        const LinearSolverOptions& linearSolverOptions = LinearSolverOptions(),
-        const OptimizerOptions& optimizerOptions = OptimizerOptions());
+      IncrementalEstimator(size_t groupId, const Options &options = Options(),
+                           const LinearSolverOptions &linearSolverOptions = LinearSolverOptions(),
+                           const OptimizerOptions &optimizerOptions = OptimizerOptions());
       /// Constructs estimator with configuration in property tree
-      IncrementalEstimator(const sm::PropertyTree& config);
+      IncrementalEstimator(const sm::PropertyTree &config);
       /// Copy constructor
-      IncrementalEstimator(const Self& other) = delete;
+      IncrementalEstimator(const Self &other) = delete;
       /// Copy assignment operator
-      IncrementalEstimator& operator = (const Self& other) = delete;
+      IncrementalEstimator &operator=(const Self &other) = delete;
       /// Move constructor
-      IncrementalEstimator(Self&& other) = delete;
+      IncrementalEstimator(Self &&other) = delete;
       /// Move assignment operator
-      IncrementalEstimator& operator = (Self&& other) = delete;
+      IncrementalEstimator &operator=(Self &&other) = delete;
       /// Destructor
       virtual ~IncrementalEstimator();
       /** @}
-        */
+       */
 
       /** \name Methods
         @{
         */
       /// Adds a measurement batch to the estimator
-      ReturnValue addBatch(const BatchSP& batch, bool force = false);
+      ReturnValue addBatch(const BatchSP &batch, bool force = false);
       /// Removes a measurement batch from the estimator
       void removeBatch(size_t idx);
       /// Removes a measurement batch from the estimator
-      void removeBatch(const BatchSP& batch);
+      void removeBatch(const BatchSP &batch);
       /// Re-runs the optimizer
       ReturnValue reoptimize();
       /** @}
-        */
+       */
 
       /** \name Accessors
         @{
@@ -185,26 +193,26 @@ namespace aslam {
       /// Returns the number of batches
       size_t getNumBatches() const;
       /// Returns the incremental optimization problem
-      const IncrementalOptimizationProblem* getProblem() const;
+      const IncrementalOptimizationProblem *getProblem() const;
       /// Returns the current options
-      const Options& getOptions() const;
+      const Options &getOptions() const;
       /// Returns the current options
-      Options& getOptions();
+      Options &getOptions();
       /// Returns the linear solver options
-      const LinearSolverOptions& getLinearSolverOptions() const;
+      const LinearSolverOptions &getLinearSolverOptions() const;
       /// Returns the linear solver options
-      LinearSolverOptions& getLinearSolverOptions();
+      LinearSolverOptions &getLinearSolverOptions();
       /// Returns the optimizer options
-      const OptimizerOptions& getOptimizerOptions() const;
+      const OptimizerOptions &getOptimizerOptions() const;
       /// Returns the optimizer options
-      OptimizerOptions& getOptimizerOptions();
+      OptimizerOptions &getOptimizerOptions();
       /// Return the marginalized group ID
       size_t getMargGroupId() const;
       /// Returns the last information gain
       double getInformationGain() const;
       /// Returns the current Jacobian transpose if available
-      const aslam::backend::CompressedColumnMatrix<std::ptrdiff_t>&
-        getJacobianTranspose() const;
+      const aslam::backend::CompressedColumnMatrix<std::ptrdiff_t> &
+      getJacobianTranspose() const;
       /// Returns the current estimated numerical rank of J_psi
       std::ptrdiff_t getRankPsi() const;
       /// Returns the current estimated numerical rank deficiency of J_psi
@@ -218,15 +226,15 @@ namespace aslam {
       /// Returns the current tolerance for the QR decomposition
       double getQRTolerance() const;
       /// Returns the orthonormal basis for the unobservable subspace of theta
-      const Eigen::MatrixXd& getNobsBasis(bool scaled = false) const;
+      const Eigen::MatrixXd &getNobsBasis(bool scaled = false) const;
       /// Returns the orthonormal basis for the observable subspace of theta
-      const Eigen::MatrixXd& getObsBasis(bool scaled = false) const;
+      const Eigen::MatrixXd &getObsBasis(bool scaled = false) const;
       /// Returns the covariance of theta
-      const Eigen::MatrixXd& getSigma2Theta(bool scaled = false) const;
+      const Eigen::MatrixXd &getSigma2Theta(bool scaled = false) const;
       /// Returns the covariance of theta_obs
-      const Eigen::MatrixXd& getSigma2ThetaObs(bool scaled = false) const;
+      const Eigen::MatrixXd &getSigma2ThetaObs(bool scaled = false) const;
       /// Returns the singular values of A_theta
-      const Eigen::VectorXd& getSingularValues(bool scaled = false) const;
+      const Eigen::VectorXd &getSingularValues(bool scaled = false) const;
       /// Returns the peak memory usage in bytes
       size_t getPeakMemoryUsage() const;
       /// Returns the current memory usage in bytes
@@ -238,7 +246,7 @@ namespace aslam {
       /// Returns the current final cost for the estimator
       double getFinalCost() const;
       /** @}
-        */
+       */
 
     protected:
       /** \name Protected methods
@@ -249,7 +257,7 @@ namespace aslam {
       /// Restores the linear solver
       void restoreLinearSolver();
       /** @}
-        */
+       */
 
       /** \name Protected members
         @{
@@ -309,8 +317,7 @@ namespace aslam {
       /// Final cost
       double _finalCost;
       /** @}
-        */
-
+       */
     };
 
   }

@@ -27,7 +27,7 @@
 
 #include <gtest/gtest.h>
 
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 #include <Eigen/LU>
 
 #include <sm/eigen/gtest.hpp>

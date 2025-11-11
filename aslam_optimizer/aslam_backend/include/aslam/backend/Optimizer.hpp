@@ -1,12 +1,11 @@
 #ifndef ASLAM_BACKEND_OPTIMIZER_HPP
 #define ASLAM_BACKEND_OPTIMIZER_HPP
 
-
 #include <sparse_block_matrix/linear_solver.h>
 #include <boost/shared_ptr.hpp>
-//#include <boost/function.hpp>
+// #include <boost/function.hpp>
 #include <sm/assert_macros.hpp>
-#include <Eigen3/Core>>
+#include <Eigen/Core>>
 #include "OptimizerOptions.hpp"
 #include "backend.hpp"
 #include "OptimizationProblemBase.hpp"
@@ -15,8 +14,10 @@
 #include <sm/boost/null_deleter.hpp>
 #include <boost/thread.hpp>
 
-namespace aslam {
-  namespace backend {
+namespace aslam
+{
+  namespace backend
+  {
     /**
      * \class Optimizer
      *
@@ -38,9 +39,10 @@ namespace aslam {
      * IEEE TRANSACTIONS ON MAGNETICS, VOL. 44, NO. 7, JULY 2008
      *
      */
-    class Optimizer {
+    class Optimizer
+    {
     public:
-        //typedef sm::timing::Timer Timer;
+      // typedef sm::timing::Timer Timer;
       /// Swapping this to the dummy timer will disable timing
       typedef sm::timing::DummyTimer Timer;
 
@@ -48,14 +50,14 @@ namespace aslam {
 
       typedef sparse_block_matrix::LinearSolver<Eigen::MatrixXd> LinearSolver;
 
-      Optimizer(const OptimizerOptions& options = OptimizerOptions());
+      Optimizer(const OptimizerOptions &options = OptimizerOptions());
       virtual ~Optimizer();
 
       /// \brief Set up to work on the optimization problem.
       void setProblem(boost::shared_ptr<OptimizationProblemBase> problem);
 
       /// \brief Set up to work on the optimization problem.
-      void setProblem(OptimizationProblemBase * problem, bool optimizerOwnsProblem) { setProblem(optimizerOwnsProblem ? boost::shared_ptr<OptimizationProblemBase>(problem) : boost::shared_ptr<OptimizationProblemBase>(problem, sm::null_deleter())); }
+      void setProblem(OptimizationProblemBase *problem, bool optimizerOwnsProblem) { setProblem(optimizerOwnsProblem ? boost::shared_ptr<OptimizationProblemBase>(problem) : boost::shared_ptr<OptimizationProblemBase>(problem, sm::null_deleter())); }
 
       /// \brief initialize the optimizer to run on an optimization problem.
       void initialize();
@@ -70,29 +72,29 @@ namespace aslam {
 #endif
 
       /// \brief Get the optimizer options.
-      OptimizerOptions& options();
+      OptimizerOptions &options();
 
       /// \brief Build the GaussNewton matrices from the optimization problem.
       void buildMatrices();
 
       /// \brief return the full Hessian
-      const SparseBlockMatrix& H() const;
+      const SparseBlockMatrix &H() const;
 
       /// \brief return the full rhs
-      const Eigen::VectorXd& rhs() const;
-      inline const Eigen::VectorXd& epsilon() const {
+      const Eigen::VectorXd &rhs() const;
+      inline const Eigen::VectorXd &epsilon() const
+      {
         return rhs();
       }
 
       /// \brief return the reduced system lhs
-      const SparseBlockMatrix& A() const;
+      const SparseBlockMatrix &A() const;
 
       /// \brief return the reduced system rhs
-      const Eigen::VectorXd& b() const;
+      const Eigen::VectorXd &b() const;
 
       /// \brief return the reduced system dx
-      const Eigen::VectorXd& dx() const;
-
+      const Eigen::VectorXd &dx() const;
 
       /// The value of the objective function.
       double J() const;
@@ -104,25 +106,24 @@ namespace aslam {
       void computeDiagonalCovariances();
 
       /// \brief compute only the covariance blocks associated with the block indices passed as an argument
-      void computeCovarianceBlocks(const std::vector<std::pair<int, int> >& blockIndices);
+      void computeCovarianceBlocks(const std::vector<std::pair<int, int>> &blockIndices);
 
       /// \brief get a particular covariance block. If the block has not been computed, this will return NULL.
-      const Eigen::MatrixXd* getCovarianceBlock(int blockRow, int blockCol) const;
-
-
-      /// \brief get the covariance matrix as a sparse matrix. This matrix will only be filled in by what was computed above.
-      const SparseBlockMatrix& P() const;
+      const Eigen::MatrixXd *getCovarianceBlock(int blockRow, int blockCol) const;
 
       /// \brief get the covariance matrix as a sparse matrix. This matrix will only be filled in by what was computed above.
-      const SparseBlockMatrix& getCovariance() const;
+      const SparseBlockMatrix &P() const;
+
+      /// \brief get the covariance matrix as a sparse matrix. This matrix will only be filled in by what was computed above.
+      const SparseBlockMatrix &getCovariance() const;
 
       /// \brief Evaluate the error at the current state.
       double evaluateError();
 
       /// \brief Get dense design variable i.
-      DesignVariable* denseVariable(size_t i);
+      DesignVariable *denseVariable(size_t i);
       /// \brief Get sparse design variable i
-      DesignVariable* sparseVariable(size_t i);
+      DesignVariable *sparseVariable(size_t i);
 
       /// \brief how many dense design variables are involved in the problem
       size_t numDenseDesignVariables() const;
@@ -144,10 +145,9 @@ namespace aslam {
       void normalizeGnMatrices();
       void initialiseDesignVariableScales();
       SolutionReturnValue optimizeNormalized();
-      const Eigen::VectorXd& getDvScales() const;
+      const Eigen::VectorXd &getDvScales() const;
 
     private:
-
       /// \brief Zero the Gauss-Newton matrices.
       void zeroMatrices();
 
@@ -204,10 +204,10 @@ namespace aslam {
       boost::shared_ptr<OptimizationProblemBase> _problem;
 
       /// \brief all design variables...first the non-marginalized ones (the dense ones), then the marginalized ones.
-      std::vector<DesignVariable*> _designVariables;
+      std::vector<DesignVariable *> _designVariables;
 
       /// \brief all of the error terms involved in this problem
-      std::set<ErrorTerm*> _errorTerms;
+      std::set<ErrorTerm *> _errorTerms;
 
       /// \brief an index into the _designVariables member that tells where the first marginalized design variable lives.
       int _marginalizedStartingBlock;
@@ -218,6 +218,5 @@ namespace aslam {
 
   } // namespace backend
 } // namespace aslam
-
 
 #endif /* ASLAM_BACKEND_OPTIMIZER_HPP */

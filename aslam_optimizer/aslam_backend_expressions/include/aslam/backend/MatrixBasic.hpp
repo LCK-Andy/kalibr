@@ -1,7 +1,7 @@
 #ifndef ASLAM_BACKEND_DV_MATRIX_TRAFO_HPP
 #define ASLAM_BACKEND_DV_MATRIX_TRAFO_HPP
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <aslam/backend/DesignVariable.hpp>
 #include "MatrixExpression.hpp"
 #include "MatrixExpressionNode.hpp"

@@ -1,7 +1,7 @@
 #ifndef ASLAM_HOMOGENEOUS_EXPRESSION_HPP
 #define ASLAM_HOMOGENEOUS_EXPRESSION_HPP
 
-#include <Eigen3/Core>
+#include <Eigen/Core>
 #include <boost/shared_ptr.hpp>
 #include "EuclideanExpression.hpp"
 #include <aslam/backend/JacobianContainer.hpp>
