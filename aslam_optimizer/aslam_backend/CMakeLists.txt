@@ -8,16 +8,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 cmake_policy(SET CMP0167 OLD)
 
 find_package(ament_cmake REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system thread serialization)
 find_package(sparse_block_matrix REQUIRED)
 find_package(sm_boost REQUIRED)
 find_package(sm_random REQUIRED)
 find_package(sm_timing REQUIRED)
 find_package(sm_logging REQUIRED)
 find_package(sm_property_tree REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system thread serialization)
 find_package(Eigen3 REQUIRED)
-find_package(SuiteSparse REQUIRED)
-find_package(TBB REQUIRED)
 
 add_library(${PROJECT_NAME}
   src/MEstimatorPolicies.cpp
@@ -70,8 +68,6 @@ target_link_libraries(${PROJECT_NAME}
     Boost::thread
     Boost::serialization
     Eigen3::Eigen
-    ${SUITESPARSE_LIBRARIES}
-    TBB::tbb
 )
 
 ##############

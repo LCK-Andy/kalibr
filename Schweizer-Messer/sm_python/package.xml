@@ -6,9 +6,9 @@
 
   <maintainer email="paul.furgale@mavt.ethz.ch">Paul Furgale</maintainer>
   <license>New BSD</license>
-  
+
   <buildtool_depend>ament_cmake</buildtool_depend>
-  
+
   <depend>eigen</depend>
   <depend>sm_common</depend>
   <depend>numpy_eigen</depend>

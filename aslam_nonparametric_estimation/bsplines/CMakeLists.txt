@@ -35,8 +35,6 @@ target_link_libraries(${PROJECT_NAME}
     sm_kinematics::sm_kinematics
     sparse_block_matrix::sparse_block_matrix
     Eigen3::Eigen
-    ${SUITESPARSE_LIBRARIES}
-    TBB::tbb
 )
 
 ##################

@@ -7,6 +7,7 @@ cmake_policy(SET CMP0167 OLD)
 add_definitions(-DASLAM_USE_ROS)
 
 find_package(ament_cmake REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system serialization filesystem thread)
 find_package(sm_common REQUIRED)
 find_package(sm_eigen REQUIRED)
 find_package(sm_boost REQUIRED)
@@ -17,7 +18,6 @@ find_package(sm_opencv REQUIRED)
 find_package(sm_property_tree REQUIRED)
 find_package(opencv2_catkin REQUIRED)
 find_package(sm_random REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system serialization filesystem)
 find_package(Eigen3 REQUIRED)
 
 add_library(${PROJECT_NAME} 

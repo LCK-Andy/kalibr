@@ -5,7 +5,7 @@
   <maintainer email="paul.furgale@mavt.ethz.ch">Paul Furgale</maintainer>
   <version>0.0.1</version>
   <license>BSD</license>
-  
+
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>sm_common</depend>
@@ -21,5 +21,3 @@
   <exec_depend>sm_kinematics</exec_depend>
   <exec_depend>sparse_block_matrix</exec_depend>
 </package>
-
-
