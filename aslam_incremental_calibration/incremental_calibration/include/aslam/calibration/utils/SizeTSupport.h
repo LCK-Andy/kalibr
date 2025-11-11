@@ -25,20 +25,24 @@
 
 #include <cstdlib>
 
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 
-namespace Eigen {
+namespace Eigen
+{
 
   /** The NumTraits<size_t> structure defines support for size_t type in Eigen.
       \brief Eigen support for size_t
     */
-  template<> struct NumTraits<size_t> {
+  template <>
+  struct NumTraits<size_t>
+  {
     /// Real definition
     typedef size_t Real;
     /// Floating point definition
     typedef double FloatingPoint;
     /// Enum for Eigen
-    enum {
+    enum
+    {
       /// Is complex
       IsComplex = 0,
       /// Has floating point

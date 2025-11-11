@@ -25,7 +25,7 @@
 
 #include <cstdlib>
 
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 
 namespace Eigen {
 

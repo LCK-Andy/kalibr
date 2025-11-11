@@ -29,7 +29,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 
 #include <boost/shared_ptr.hpp>
 

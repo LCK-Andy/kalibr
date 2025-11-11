@@ -24,23 +24,25 @@
 #ifndef ASLAM_CALIBRATION_DATA_VECTOR_DESIGN_VARIABLE_H
 #define ASLAM_CALIBRATION_DATA_VECTOR_DESIGN_VARIABLE_H
 
-#include <Eigen/Core>
+#include <Eigen3/Core>
 
 #include <aslam/backend/DesignVariable.hpp>
 
 #include "aslam/calibration/base/Serializable.h"
 
-namespace aslam {
-  namespace calibration {
+namespace aslam
+{
+  namespace calibration
+  {
 
     /** The class VectorDesignVariable implements a vector-valued design
         variable.
         \brief Vector-valued design variable
       */
     template <int M>
-    class VectorDesignVariable :
-      public aslam::backend::DesignVariable,
-      public virtual Serializable {
+    class VectorDesignVariable : public aslam::backend::DesignVariable,
+                                 public virtual Serializable
+    {
     public:
       /// \cond
       // Required by Eigen for fixed-size matrices members
@@ -56,31 +58,31 @@ namespace aslam {
       /// Variable container type
       typedef Eigen::Matrix<double, M, 1> Container;
       /** @}
-        */
+       */
 
       /** \name Constructors/destructor
         @{
         */
       /// Constructor
-      VectorDesignVariable(const Container& initValue = Container::Zero());
+      VectorDesignVariable(const Container &initValue = Container::Zero());
       /// Copy constructor
-      VectorDesignVariable(const VectorDesignVariable& other);
+      VectorDesignVariable(const VectorDesignVariable &other);
       /// Assignment operator
-      VectorDesignVariable& operator = (const VectorDesignVariable& other);
+      VectorDesignVariable &operator=(const VectorDesignVariable &other);
       /// Destructor
       virtual ~VectorDesignVariable();
       /** @}
-        */
+       */
 
       /** \name Accessors
         @{
         */
       /// Access the value of the design variable
-      const Container& getValue() const;
+      const Container &getValue() const;
       /// Set the value of the design variable
-      void setValue(const Container& value);
+      void setValue(const Container &value);
       /** @}
-        */
+       */
 
     protected:
       /** \name Protected methods
@@ -89,29 +91,29 @@ namespace aslam {
       /// What is the number of dimensions of the perturbation variable.
       virtual int minimalDimensionsImplementation() const;
       /// Update the design variable.
-      virtual void updateImplementation(const double* dp, int size);
+      virtual void updateImplementation(const double *dp, int size);
       /// Revert the last state update.
       virtual void revertUpdateImplementation();
       /// Returns the content of the design variable
-      virtual void getParametersImplementation(Eigen::MatrixXd& value) const;
+      virtual void getParametersImplementation(Eigen::MatrixXd &value) const;
       /// Sets the content of the design variable
-      virtual void setParametersImplementation(const Eigen::MatrixXd& value);
+      virtual void setParametersImplementation(const Eigen::MatrixXd &value);
       /** @}
-        */
+       */
 
       /** \name Stream methods
         @{
         */
       /// Reads from standard input
-      virtual void read(std::istream& stream);
+      virtual void read(std::istream &stream);
       /// Writes to standard output
-      virtual void write(std::ostream& stream) const;
+      virtual void write(std::ostream &stream) const;
       /// Reads from a file
-      virtual void read(std::ifstream& stream);
+      virtual void read(std::ifstream &stream);
       /// Writes to a file
-      virtual void write(std::ofstream& stream) const;
+      virtual void write(std::ofstream &stream) const;
       /** @}
-        */
+       */
 
       /** \name Protected members
         @{
@@ -121,8 +123,7 @@ namespace aslam {
       /// Old variable container
       Container _oldValue;
       /** @}
-        */
-
+       */
     };
 
   }

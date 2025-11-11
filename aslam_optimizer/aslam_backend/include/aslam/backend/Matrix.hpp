@@ -1,7 +1,7 @@
 #ifndef ASLAM_BACKEND_MATRIX_HPP
 #define ASLAM_BACKEND_MATRIX_HPP
 
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 #include <iostream>
 #include <sm/assert_macros.hpp>
 

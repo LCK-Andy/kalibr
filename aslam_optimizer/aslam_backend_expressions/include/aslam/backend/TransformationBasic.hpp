@@ -2,13 +2,15 @@
 #define ASLAM_BACKEND_TV_QUAT_HPP
 
 #include "TransformationExpressionNode.hpp"
-#include <Eigen/Core>
+#include <Eigen3/Core>
 #include "RotationExpression.hpp"
 #include "EuclideanExpression.hpp"
 
-namespace aslam {
-  namespace backend {
-    
+namespace aslam
+{
+  namespace backend
+  {
+
     class TransformationBasic : public TransformationExpressionNode
     {
     public:
@@ -20,13 +22,13 @@ namespace aslam {
 
     private:
       virtual Eigen::Matrix4d toTransformationMatrixImplementation();
-      virtual void evaluateJacobiansImplementation(JacobianContainer & outJacobians) const;
-      virtual void evaluateJacobiansImplementation(JacobianContainer & outJacobians, const Eigen::MatrixXd & applyChainRule) const;
-      virtual void getDesignVariablesImplementation(DesignVariable::set_t & designVariables) const;
-      
+      virtual void evaluateJacobiansImplementation(JacobianContainer &outJacobians) const;
+      virtual void evaluateJacobiansImplementation(JacobianContainer &outJacobians, const Eigen::MatrixXd &applyChainRule) const;
+      virtual void getDesignVariablesImplementation(DesignVariable::set_t &designVariables) const;
+
     private:
       boost::shared_ptr<RotationExpressionNode> _rotation;
-      boost::shared_ptr<EuclideanExpressionNode>  _translation;
+      boost::shared_ptr<EuclideanExpressionNode> _translation;
     };
 
   } // namespace backend

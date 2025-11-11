@@ -6,7 +6,7 @@
 #include <SuiteSparseQR.hpp>
 #endif
 #include <sm/assert_macros.hpp>
-#include <Eigen/Core>
+#include <Eigen3/Core>
 
 namespace aslam {
   namespace backend {

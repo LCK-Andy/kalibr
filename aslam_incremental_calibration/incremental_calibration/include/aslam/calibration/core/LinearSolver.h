@@ -31,7 +31,7 @@
 
 #include <cholmod.h>
 
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 
 #include <aslam/backend/CompressedColumnJacobianTransposeBuilder.hpp>
 #include <aslam/backend/LinearSystemSolver.hpp>

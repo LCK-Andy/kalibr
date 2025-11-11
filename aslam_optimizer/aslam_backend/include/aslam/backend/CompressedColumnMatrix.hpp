@@ -4,9 +4,9 @@
 #include <cs.h>
 #include "Cholmod.hpp"
 #include <vector>
-#include <Eigen/Core>
-//#define EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET
-//#include <Eigen/Sparse>
+#include <Eigen3/Core>>
+// #define EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET
+// #include <Eigen/Sparse>
 #include <sm/assert_macros.hpp>
 #include <sm/string_routines.hpp>
 #include <boost/cstdint.hpp>
@@ -15,29 +15,28 @@
 #include <iostream>
 #include "Matrix.hpp"
 
-namespace aslam {
-  namespace backend {
+namespace aslam
+{
+  namespace backend
+  {
 
-
-
-    struct JacobianColumnPointer {
+    struct JacobianColumnPointer
+    {
       JacobianColumnPointer(size_t sc = 0, size_t epc = 0) : startValueIndex(sc), elementsPerColumn(epc) {}
       size_t startValueIndex;
       size_t elementsPerColumn;
     };
 
-
-    template<typename INDEX_T = int>
-    class CompressedColumnMatrix : public Matrix {
+    template <typename INDEX_T = int>
+    class CompressedColumnMatrix : public Matrix
+    {
     public:
-
-
       SM_DEFINE_EXCEPTION(Exception, std::runtime_error);
 
       /// \brief the index type of the matrix
       typedef INDEX_T index_t;
 
-      //typedef Eigen::MappedCompressedColumnMatrix<value_t> eigen_sparse_t;
+      // typedef Eigen::MappedCompressedColumnMatrix<value_t> eigen_sparse_t;
       CompressedColumnMatrix();
 
       /// \brief initialize and set the potential number of nonzeros.
@@ -46,9 +45,9 @@ namespace aslam {
       virtual ~CompressedColumnMatrix();
 
       /// \brief Return this matrix as a Cholmod sparse matrix
-      void getView(cholmod_sparse* cs);
+      void getView(cholmod_sparse *cs);
 
-      virtual void toDenseInto(Eigen::MatrixXd& outM) const;
+      virtual void toDenseInto(Eigen::MatrixXd &outM) const;
 
       /// \brief Clear all values in this matrix
       void clear();
@@ -72,20 +71,20 @@ namespace aslam {
       size_t nnz() const;
 
       /// \brief Get the underlying values
-      const std::vector<double>& values() const;
+      const std::vector<double> &values() const;
 
       /// \brief Get the underlying row indices
-      const std::vector<index_t>& row_ind() const;
+      const std::vector<index_t> &row_ind() const;
 
       /// \brief Get the underlying column pointers
-      const std::vector<index_t>& col_ptr() const;
+      const std::vector<index_t> &col_ptr() const;
 
       /**
        * \brief A convenience function that gets the Jacobians from the
        *        error term and calls appendJacobiansSymbolic()
        *
        */
-      JacobianColumnPointer appendErrorJacobiansSymbolic(const ErrorTerm& e);
+      JacobianColumnPointer appendErrorJacobiansSymbolic(const ErrorTerm &e);
 
       /**
        * \brief Append \f$\mathbf J^T\f$ to the right of this matrix.
@@ -97,53 +96,52 @@ namespace aslam {
        * @param dvs The list of design variables with non-zero Jacobians in this column.
        * @return outColumnPointer A pointer to the value array of the Jacobian matrix.
        */
-      JacobianColumnPointer appendJacobiansSymbolic(int Jrows, const std::vector<DesignVariable*>& dvs);
+      JacobianColumnPointer appendJacobiansSymbolic(int Jrows, const std::vector<DesignVariable *> &dvs);
 
       /// \brief Write the Jacobian values to the matrix using the pointer provided by appendJacobiansSymbolic()
-      void writeJacobians(const JacobianContainer& jc, const JacobianColumnPointer& cp);
+      void writeJacobians(const JacobianContainer &jc, const JacobianColumnPointer &cp);
 
       /// \brief A convenience function that calls appendJacobiansSymbolic() and then writeJacobians()
-      void appendJacobians(const JacobianContainer& jc);
+      void appendJacobians(const JacobianContainer &jc);
 
       /// \brief Push a constant diagonal block on to the end of the matrix.
       void pushConstantDiagonalBlock(double constant);
 
       /// \brief Push a diagonal block on to the end of the matrix.
       ///        The diagonal vector must have the same number of rows as the matrix.
-      void pushDiagonalBlock(const Eigen::VectorXd& diagonal);
+      void pushDiagonalBlock(const Eigen::VectorXd &diagonal);
 
       /// \brief Pop the diagonal block off of the matrix.
       void popDiagonalBlock();
 
       /// \brief update the diagonal block
-      void updateDiagonalBlock(const Eigen::VectorXd& diagonal);
+      void updateDiagonalBlock(const Eigen::VectorXd &diagonal);
 
       /// \brief update the diagonal block with a constant value
       void updateConstantDiagonalBlock(double diagonal);
 
       /// \brief right multiply the vector y = A x
-      void rightMultiply(const Eigen::VectorXd& x, Eigen::VectorXd& outY) const;
+      void rightMultiply(const Eigen::VectorXd &x, Eigen::VectorXd &outY) const;
 
       /// \brief left multiply the vector y = A^T x
-      void leftMultiply(const Eigen::VectorXd& x, Eigen::VectorXd& outY) const;
-
+      void leftMultiply(const Eigen::VectorXd &x, Eigen::VectorXd &outY) const;
 
       /// \brief Initialize the matrix from a dense matrix
-      virtual void fromDense(const Eigen::MatrixXd& M);
+      virtual void fromDense(const Eigen::MatrixXd &M);
 
       /// \brief Initialize the matrix from a dense matrix.
       ///        Entries with absolute value less than tolerance
       ///        should be considered zeros.
-      virtual void fromDenseTolerance(const Eigen::MatrixXd& M, double tolerance);
+      virtual void fromDenseTolerance(const Eigen::MatrixXd &M, double tolerance);
 
       /// Writes to standard output
-      virtual void write(std::ostream& stream) const;
+      virtual void write(std::ostream &stream) const;
 
       /// Writes to standard stream in MATLAB format
-      void writeMATLAB(std::ostream& stream) const;
+      void writeMATLAB(std::ostream &stream) const;
 
       /// Initializes the matrix from a cholmod_sparse matrix
-      void fromCholmodSparse(const cholmod_sparse* cs);
+      void fromCholmodSparse(const cholmod_sparse *cs);
 
     private:
       void checkMatrixDbg();
@@ -157,7 +155,6 @@ namespace aslam {
       bool _hasDiagonalAppended;
       // Keep one of these guys around to make cs views.
       cholmod_sparse _cholmodSparse;
-
     };
 
   } // namespace backend

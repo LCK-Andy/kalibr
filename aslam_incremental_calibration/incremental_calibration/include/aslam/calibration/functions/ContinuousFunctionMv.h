@@ -21,20 +21,22 @@
            interface to the multivariate continuous functions
   */
 
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 
 #include "aslam/calibration/functions/Function.h"
 
-namespace aslam {
-  namespace calibration {
+namespace aslam
+{
+  namespace calibration
+  {
 
     /** The class ContinuousFunctionMv is an interface to the multivariate
         continuous functions.
         \brief Multivariate continuous function
       */
     template <typename Y, typename X, int M, int N>
-    class ContinuousFunction :
-      public virtual Function<Y, Eigen::Matrix<X, M, N> > {
+    class ContinuousFunction : public virtual Function<Y, Eigen::Matrix<X, M, N>>
+    {
     public:
       /// \cond
       // Template parameters assertion
@@ -50,7 +52,7 @@ namespace aslam {
       /// Codomain type
       typedef Y CodomainType;
       /** @}
-        */
+       */
 
       /** \name Constructors/Destructor
         @{
@@ -58,8 +60,7 @@ namespace aslam {
       /// Destructor
       virtual ~ContinuousFunction();
       /** @}
-        */
-
+       */
     };
 
   }

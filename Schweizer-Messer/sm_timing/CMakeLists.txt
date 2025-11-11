@@ -1,21 +1,14 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 project(sm_timing)
 
 set(CMAKE_CXX_STANDARD 14)
 
-find_package(catkin REQUIRED COMPONENTS sm_common sm_random)
-include_directories(${catkin_INCLUDE_DIRS})
+find_package(ament_cmake REQUIRED)
+find_package(sm_common REQUIRED)
+find_package(sm_random REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system)
 
-catkin_package(
-  INCLUDE_DIRS include  ${catkin_INCLUDE_DIRS}
-  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS sm_common sm_random
-  DEPENDS
-)
 add_definitions(-D__STRICT_ANSI__)
-
-include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 
 ##############
 ## Building ##
@@ -25,38 +18,53 @@ add_library(${PROJECT_NAME}
   src/Timer.cpp
   src/NsecTimeUtilities.cpp
 )
-target_link_libraries(${PROJECT_NAME} 
-                      ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+target_include_directories(${PROJECT_NAME}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
+
+target_link_libraries(${PROJECT_NAME}
+  PUBLIC
+    sm_common::sm_common
+    sm_random::sm_random
+    Boost::system
+)
 
 ##################
 ## Installation ##
 ##################
 
 install(TARGETS ${PROJECT_NAME}
-ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  EXPORT ${PROJECT_NAME}Targets
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
 )
 
-## Mark cpp header files for installation
 install(DIRECTORY include/
-DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
+  DESTINATION include
 )
 
-#############
+##################
 ## Testing ##
-#############
-if(CATKIN_ENABLE_TESTING)
-  # Avoid clash with tr1::tuple: https://code.google.com/p/googletest/source/browse/trunk/README?r=589#257
-  add_definitions(-DGTEST_USE_OWN_TR1_TUPLE=0)
+##################
 
-  ## Add gtest based cpp test target and link libraries
-  catkin_add_gtest(${PROJECT_NAME}-test
+if(BUILD_TESTING)
+  enable_testing()
+  find_package(ament_cmake_gtest REQUIRED)
+  
+  ament_add_gtest(${PROJECT_NAME}-test
     test/test_main.cpp
     test/TestTimestampCorrector.cpp
     test/TestNsecTimeUtilities.cpp
-    )
+  )
   if(TARGET ${PROJECT_NAME}-test)
     target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME} pthread)
   endif()
 endif()
+
+ament_export_targets(${PROJECT_NAME}Targets HAS_LIBRARY_TARGET)
+ament_export_dependencies(sm_common sm_random Boost)
+ament_package()

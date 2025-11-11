@@ -10,16 +10,18 @@
 
 #include <aslam/backend/ErrorTerm.hpp>
 #include <aslam/backend/EuclideanExpression.hpp>
-#include <Eigen/Core>
+#include <Eigen3/Core>
 
-namespace aslam {
-  namespace backend {
+namespace aslam
+{
+  namespace backend
+  {
 
     /*!
-    * \class ErrorTermEuclidean
-    *
-    * \brief An ErrorTerm implementation for the deviation of a translation pose wrt. a prior
-    */
+     * \class ErrorTermEuclidean
+     *
+     * \brief An ErrorTerm implementation for the deviation of a translation pose wrt. a prior
+     */
 
     class ErrorTermEuclidean : public aslam::backend::ErrorTermFs<3>
     {
@@ -29,8 +31,8 @@ namespace aslam {
       // http://eigen.tuxfamily.org/dox-devel/TopicStructHavingEigenMembers.html
       EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-      ErrorTermEuclidean(const aslam::backend::EuclideanExpression& t, const Eigen::Vector3d& prior, const Eigen::Matrix<double,3,3>& N, int debug=0);
-      ErrorTermEuclidean(const aslam::backend::EuclideanExpression& t, const Eigen::Vector3d& prior, double weight, int debug=0);
+      ErrorTermEuclidean(const aslam::backend::EuclideanExpression &t, const Eigen::Vector3d &prior, const Eigen::Matrix<double, 3, 3> &N, int debug = 0);
+      ErrorTermEuclidean(const aslam::backend::EuclideanExpression &t, const Eigen::Vector3d &prior, double weight, int debug = 0);
 
       virtual ~ErrorTermEuclidean();
 
@@ -41,7 +43,7 @@ namespace aslam {
       virtual double evaluateErrorImplementation();
 
       /// \brief evaluate the jacobian
-      virtual void evaluateJacobiansImplementation(JacobianContainer & J);
+      virtual void evaluateJacobiansImplementation(JacobianContainer &J);
 
     private:
       aslam::backend::EuclideanExpression _t;
@@ -51,6 +53,5 @@ namespace aslam {
 
   } // namespace backend
 } // namespace aslam
-
 
 #endif /* ASLAM_BACKEND_ERROR_EUCLIDEAN_HPP */

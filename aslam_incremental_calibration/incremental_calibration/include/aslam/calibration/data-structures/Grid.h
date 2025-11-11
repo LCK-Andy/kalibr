@@ -26,7 +26,7 @@
 
 #include <vector>
 
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 
 #include "aslam/calibration/base/Serializable.h"
 #include "aslam/calibration/utils/SizeTSupport.h"

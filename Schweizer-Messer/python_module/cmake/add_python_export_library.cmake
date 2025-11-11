@@ -60,33 +60,25 @@ ${SETUP_PY_TEXT}
 ")
   endif()
   # Force the user to have a setup.py file
-  catkin_python_setup()
+  # Note: ROS 2 does not have catkin_python_setup(), use setuptools directly via ament_cmake_python
 
   # Find Python
-  FIND_PACKAGE(PythonLibs REQUIRED)
-  INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_DIRS})
+  FIND_PACKAGE(Python3 REQUIRED COMPONENTS Interpreter Development)
+  INCLUDE_DIRECTORIES(${Python3_INCLUDE_DIRS})
 
   if(APPLE)
     SET(BOOST_COMPONENTS system)
   else()
     SET(BOOST_COMPONENTS)
   endif()
-  if(PYTHONLIBS_VERSION_STRING VERSION_LESS 3)
-    find_package(Boost QUIET)
-    if(Boost_VERSION LESS 106700)
-      list(APPEND BOOST_COMPONENTS python)
-    else()
-      # The boost_python library has been renamed in Boost 1.67 and the FindBoost.cmake
-      # module requires a Python version suffix:
-      #
-      # References:
-      # - https://www.boost.org/docs/libs/1_67_0/libs/python/doc/html/rn.html
-      # - https://cmake.org/cmake/help/v3.12/module/FindBoost.html
-      #
-      list(APPEND BOOST_COMPONENTS python27)
-    endif()
+  # Python 3 support - use python3x component naming
+  find_package(Boost QUIET)
+  if(Boost_VERSION LESS 106700)
+    list(APPEND BOOST_COMPONENTS python3)
   else()
-    list(APPEND BOOST_COMPONENTS python38)
+    # Boost >= 1.67 requires version suffix (e.g., python39, python310)
+    string(REPLACE "." "" Python3_VERSION_NODOT "${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}")
+    list(APPEND BOOST_COMPONENTS "python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}")
   endif()
   find_package(Boost REQUIRED COMPONENTS ${BOOST_COMPONENTS}) 
 
@@ -118,29 +110,27 @@ ${SETUP_PY_TEXT}
     )
 
   # Link your python project to the main library and to Python
-  target_link_libraries( ${TARGET_NAME}
-    ${PYTHON_LIBRARY}
-    ${catkin_LIBRARIES}
-    )
-
-  # Link against boost::python
-  target_link_libraries(${TARGET_NAME} ${Boost_LIBRARIES})
+  target_link_libraries(${TARGET_NAME}
+    PUBLIC
+      Python3::Python
+      ${Boost_LIBRARIES}
+  )
 
   # On OSX and Linux, the python library must end in the extension .so. Build this
   # filename here.
   get_filename_component(PYLIB_OUTPUT_NAME $<TARGET_FILE:${TARGET_NAME}> NAME_WE)
 
   install(TARGETS ${TARGET_NAME}
-    ARCHIVE DESTINATION ${CATKIN_GLOBAL_PYTHON_DESTINATION}/${TARGET_NAME}
-    LIBRARY DESTINATION ${CATKIN_GLOBAL_PYTHON_DESTINATION}/${TARGET_NAME}
+    ARCHIVE DESTINATION lib/python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages/${TARGET_NAME}
+    LIBRARY DESTINATION lib/python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages/${TARGET_NAME}
   )
   
   # Cause the library to be output in the correct directory.
-  set(PYTHON_LIB_DIR ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_PYTHON_DESTINATION}/${PYTHON_PACKAGE_NAME})
+  set(PYTHON_LIB_DIR ${CMAKE_BINARY_DIR}/lib/python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages/${PYTHON_PACKAGE_NAME})
   add_custom_command(TARGET ${TARGET_NAME}
     POST_BUILD
     COMMAND mkdir -p ${PYTHON_LIB_DIR} && cp -v ${PYLIB_OUTPUT_NAME} ${PYTHON_LIB_DIR}/
-    WORKING_DIRECTORY ${CATKIN_DEVEL_PREFIX}
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMENT "Copying library files to python directory" )
   get_directory_property(AMCF ADDITIONAL_MAKE_CLEAN_FILES)
   list(APPEND AMCF ${PYTHON_LIB_DIR}/${PYLIB_OUTPUT_NAME})

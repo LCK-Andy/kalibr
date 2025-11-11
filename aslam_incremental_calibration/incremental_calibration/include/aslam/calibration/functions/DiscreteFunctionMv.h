@@ -21,20 +21,22 @@
            to the multivariate discrete functions
   */
 
-#include <Eigen/Core>
+#include <Eigen3/Core>
 
 #include "aslam/calibration/functions/Function.h"
 
-namespace aslam {
-  namespace calibration {
+namespace aslam
+{
+  namespace calibration
+  {
 
     /** The DiscreteFunctionMv class is an interface to the multivariate
         discrete functions.
         \brief Multivariate discrete function
       */
     template <typename Y, typename X, int M, int N>
-    class DiscreteFunction :
-      public virtual Function<Y, Eigen::Matrix<X, M, N> > {
+    class DiscreteFunction : public virtual Function<Y, Eigen::Matrix<X, M, N>>
+    {
     public:
       /// \cond
       // Template parameters assertion
@@ -48,7 +50,7 @@ namespace aslam {
       /// Destructor
       virtual ~DiscreteFunction();
       /** @}
-        */
+       */
 
       /** \name Types
         @{
@@ -58,8 +60,7 @@ namespace aslam {
       /// Codomain type
       typedef Y CodomainType;
       /** @}
-        */
-
+       */
     };
 
   }

@@ -2,7 +2,7 @@
 #define ASLAM_FRAME_BASE_HPP
 
 #include <aslam/Time.hpp>
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 #include <aslam/KeypointBase.hpp>
 #include <opencv2/core/core.hpp>
 #include <aslam/BackProjection.hpp>

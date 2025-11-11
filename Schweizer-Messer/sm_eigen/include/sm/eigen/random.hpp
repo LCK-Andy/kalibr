@@ -1,14 +1,15 @@
 #ifndef SM_EIGEN_RANDOM_HPP
 #define SM_EIGEN_RANDOM_HPP
-#include <Eigen/Core>
+#include <Eigen3/Core>
 
-namespace sm {
-namespace eigen {
+namespace sm
+{
+    namespace eigen
+    {
 
-Eigen::VectorXd randn(unsigned dim);
+        Eigen::VectorXd randn(unsigned dim);
 
-} // namespace eigen
+    } // namespace eigen
 } // namespace sm
-
 
 #endif /* SM_EIGEN_RANDOM_HPP */

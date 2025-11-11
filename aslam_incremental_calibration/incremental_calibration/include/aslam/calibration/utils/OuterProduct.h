@@ -25,24 +25,25 @@
 
 #include <cstdlib>
 
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 
 /** The OuterProduct namespace contains outer product functions.
     \brief Outer product functions
   */
-namespace OuterProduct {
+namespace OuterProduct
+{
   /** \name Methods
     @{
     */
   /// The compute function generates the outer product of 2 vectors
   template <typename X, size_t M, size_t N>
-  Eigen::Matrix<X, M, N> compute(const Eigen::Matrix<X, M, 1>& v1,
-      const Eigen::Matrix<X, N, 1>& v2);
+  Eigen::Matrix<X, M, N> compute(const Eigen::Matrix<X, M, 1> &v1,
+                                 const Eigen::Matrix<X, N, 1> &v2);
   /// The compute function generates the self outer product of a vector
   template <typename X, size_t M>
-  Eigen::Matrix<X, M, M> compute(const Eigen::Matrix<X, M, 1>& v);
+  Eigen::Matrix<X, M, M> compute(const Eigen::Matrix<X, M, 1> &v);
   /** @}
-    */
+   */
 
 }
 

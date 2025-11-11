@@ -5,7 +5,7 @@
 #include <boost/shared_ptr.hpp>
 //#include <boost/function.hpp>
 #include <sm/assert_macros.hpp>
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 #include "Optimizer2Options.hpp"
 #include "backend.hpp"
 #include "OptimizationProblemBase.hpp"

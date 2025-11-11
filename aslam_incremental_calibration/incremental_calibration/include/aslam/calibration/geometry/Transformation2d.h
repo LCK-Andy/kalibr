@@ -20,7 +20,7 @@
     \brief This file defines a transformation in 2d.
   */
 
-#include <Eigen/Core>
+#include <Eigen3/Core>>
 
 #include "aslam/calibration/base/Serializable.h"
 
