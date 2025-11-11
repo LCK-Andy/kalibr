@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.10)
 project(aslam_cameras)
 
 ADD_DEFINITIONS(-DASLAM_USE_ROS)
