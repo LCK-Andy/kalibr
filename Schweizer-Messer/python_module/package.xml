@@ -2,11 +2,14 @@
 <package format="3">
   <name>python_module</name>
   <version>0.0.1</version>
-  <description>python_module</description>
+  <description>python_module - Python binding utilities</description>
 
   <maintainer email="paul.furgale@mavt.ethz.ch">Paul Furgale</maintainer>
   <license>New BSD</license>
-  <buildtool_depend>catkin</buildtool_depend>
-  <build_depend condition="$ROS_PYTHON_VERSION == 2">python-numpy</build_depend>
-  <build_depend condition="$ROS_PYTHON_VERSION == 3">python3-numpy</build_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>python3-numpy</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>

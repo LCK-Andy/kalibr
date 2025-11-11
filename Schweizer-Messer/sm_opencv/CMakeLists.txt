@@ -1,18 +1,22 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 project(sm_opencv)
 
-set(CMAKE_CXX_STANDARD 14)
+# Set CMake policy for Boost
+cmake_policy(SET CMP0167 OLD)
 
-find_package(catkin REQUIRED COMPONENTS sm_common)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(ament_cmake REQUIRED)
+find_package(sm_common REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system)
 
-catkin_package(
-  INCLUDE_DIRS include  ${catkin_INCLUDE_DIRS}
-  CATKIN_DEPENDS sm_common
-  DEPENDS Boost
-)
 add_definitions(-D__STRICT_ANSI__)
 
 install(DIRECTORY include/
-  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
+  DESTINATION include
 )
+
+ament_export_include_directories(include)
+
+ament_package()

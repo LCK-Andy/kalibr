@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 project(python_module)
 
-find_package(catkin REQUIRED)
+find_package(ament_cmake REQUIRED)
 
-catkin_package(
-  CFG_EXTRAS add_python_export_library.cmake
+ament_package(
+  CONFIG_EXTRAS cmake/add_python_export_library.cmake
 )
