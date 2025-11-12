@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package format="3">
-  <name>aslam_cv_serialization</name>
-  <version>0.0.1</version>
-  <description>aslam_cv_serialization</description>
-  <maintainer email="paul.furgale@mavt.ethz.ch">Paul Furgale</maintainer>
-  <license>New BSD</license>
-  
-  <buildtool_depend>ament_cmake</buildtool_depend>
+    <name>aslam_cv_serialization</name>
+    <version>0.0.1</version>
+    <description>aslam_cv_serialization</description>
+    <maintainer email="paul.furgale@mavt.ethz.ch">Paul Furgale</maintainer>
+    <license>New BSD</license>
 
-  <depend>aslam_cameras</depend>
-  <depend>aslam_time</depend>
-  <depend>sm_common</depend>
-  <depend>sm_boost</depend>
-  <depend>sm_property_tree</depend>
-  <depend>sm_eigen</depend>
-  <depend>sm_kinematics</depend>
-  <depend>sm_opencv</depend>
-  <depend>sm_logging</depend>
-  <depend>opencv2_catkin</depend>
-  <depend>sm_random</depend>
-  <depend>eigen</depend>
+    <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <exec_depend>aslam_cameras</exec_depend>
-  <exec_depend>aslam_time</exec_depend>
-  <exec_depend>sm_common</exec_depend>
-  <exec_depend>sm_boost</exec_depend>
-  <exec_depend>sm_property_tree</exec_depend>
-  <exec_depend>sm_eigen</exec_depend>
-  <exec_depend>sm_kinematics</exec_depend>
-  <exec_depend>sm_opencv</exec_depend>
-  <exec_depend>sm_logging</exec_depend>
-  <exec_depend>sm_random</exec_depend>
+    <depend>aslam_cameras</depend>
+    <depend>aslam_time</depend>
+    <depend>sm_common</depend>
+    <depend>sm_boost</depend>
+    <depend>sm_property_tree</depend>
+    <depend>sm_eigen</depend>
+    <depend>sm_kinematics</depend>
+    <depend>sm_opencv</depend>
+    <depend>sm_logging</depend>
+    <depend>opencv2_catkin</depend>
+    <depend>sm_random</depend>
+    <depend>eigen</depend>
+
+    <exec_depend>aslam_cameras</exec_depend>
+    <exec_depend>aslam_time</exec_depend>
+    <exec_depend>sm_common</exec_depend>
+    <exec_depend>sm_boost</exec_depend>
+    <exec_depend>sm_property_tree</exec_depend>
+    <exec_depend>sm_eigen</exec_depend>
+    <exec_depend>sm_kinematics</exec_depend>
+    <exec_depend>sm_opencv</exec_depend>
+    <exec_depend>sm_logging</exec_depend>
+    <exec_depend>sm_random</exec_depend>
 </package>

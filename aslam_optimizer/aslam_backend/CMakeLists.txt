@@ -9,7 +9,7 @@ cmake_policy(SET CMP0167 OLD)
 
 find_package(ament_cmake REQUIRED)
 # Find external dependencies FIRST before importing targets that depend on them
-find_package(Boost REQUIRED COMPONENTS system thread serialization)
+find_package(Boost REQUIRED COMPONENTS system thread serialization regex filesystem)
 find_package(Eigen3 REQUIRED)
 find_package(TBB REQUIRED)
 

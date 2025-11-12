@@ -8,8 +8,8 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(ament_cmake REQUIRED)
-find_package(sm_common REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system filesystem)
+find_package(sm_common REQUIRED)
 
 add_definitions(-D__STRICT_ANSI__)
 

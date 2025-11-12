@@ -93,7 +93,7 @@ install(DIRECTORY include/${PROJECT_NAME}/
 )
 
 ament_export_include_directories(include)
-ament_export_libraries(${PROJECT_NAME})
+ament_export_targets(${PROJECT_NAME} ${PROJECT_NAME}_test)
 ament_export_dependencies(Boost Eigen3)
 
 ament_package(CONFIG_EXTRAS cmake/numpy_eigen-extras.cmake)

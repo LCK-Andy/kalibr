@@ -5,7 +5,7 @@
   <description>aslam_imgproc</description>
   <maintainer email="paul.furgale@mavt.ethz.ch">Author</maintainer>
   <license>BSD</license>
-  
+
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>sm_common</depend>
