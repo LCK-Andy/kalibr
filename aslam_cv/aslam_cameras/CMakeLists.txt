@@ -7,7 +7,11 @@ cmake_policy(SET CMP0167 OLD)
 add_definitions(-DASLAM_USE_ROS)
 
 find_package(ament_cmake REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system serialization filesystem thread)
+# Find external dependencies FIRST before importing targets that depend on them
+find_package(Boost REQUIRED COMPONENTS system serialization filesystem thread regex)
+find_package(OpenCV REQUIRED)
+find_package(Eigen3 REQUIRED)
+
 find_package(sm_common REQUIRED)
 find_package(sm_eigen REQUIRED)
 find_package(sm_boost REQUIRED)
@@ -18,7 +22,6 @@ find_package(sm_opencv REQUIRED)
 find_package(sm_property_tree REQUIRED)
 find_package(opencv2_catkin REQUIRED)
 find_package(sm_random REQUIRED)
-find_package(Eigen3 REQUIRED)
 
 add_library(${PROJECT_NAME} 
   src/CameraGeometryBase.cpp
@@ -49,6 +52,7 @@ target_include_directories(${PROJECT_NAME}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     ${EIGEN3_INCLUDE_DIR}
+    ${OpenCV_INCLUDE_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -66,6 +70,7 @@ target_link_libraries(${PROJECT_NAME}
     Boost::serialization
     Boost::filesystem
     Eigen3::Eigen
+    ${OpenCV_LIBRARIES}
 )
 
 target_compile_options(${PROJECT_NAME} PUBLIC "-Wno-deprecated-copy")

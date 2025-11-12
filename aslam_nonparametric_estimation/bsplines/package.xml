@@ -13,11 +13,4 @@
   <depend>sm_eigen</depend>
   <depend>sm_kinematics</depend>
   <depend>sparse_block_matrix</depend>
-  <depend>suitesparse</depend>
-
-  <exec_depend>sm_common</exec_depend>
-  <exec_depend>sm_timing</exec_depend>
-  <exec_depend>sm_eigen</exec_depend>
-  <exec_depend>sm_kinematics</exec_depend>
-  <exec_depend>sparse_block_matrix</exec_depend>
 </package>

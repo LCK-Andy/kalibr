@@ -15,14 +15,5 @@
   <depend>sm_timing</depend>
   <depend>sm_logging</depend>
   <depend>sm_property_tree</depend>
-  <depend>suitesparse</depend>
   <depend>tbb</depend>
-
-  <exec_depend>sparse_block_matrix</exec_depend>
-  <exec_depend>sm_boost</exec_depend>
-  <exec_depend>sm_random</exec_depend>
-  <exec_depend>sm_timing</exec_depend>
-  <exec_depend>sm_logging</exec_depend>
-  <exec_depend>sm_property_tree</exec_depend>
-  <exec_depend>tbb</exec_depend>
 </package>

@@ -9,7 +9,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(ament_cmake REQUIRED)
 find_package(sm_common REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system serialization)
 find_package(OpenCV REQUIRED)
 
 add_definitions(-D__STRICT_ANSI__)
@@ -24,7 +23,6 @@ target_include_directories(${PROJECT_NAME} INTERFACE
 
 target_link_libraries(${PROJECT_NAME} INTERFACE
   sm_common::sm_common
-  OpenCV::opencv_core
 )
 
 install(DIRECTORY include/
@@ -36,14 +34,8 @@ install(TARGETS ${PROJECT_NAME}
   EXPORT ${PROJECT_NAME}Targets
 )
 
-install(EXPORT ${PROJECT_NAME}Targets
-  FILE ${PROJECT_NAME}Targets.cmake
-  NAMESPACE ${PROJECT_NAME}::
-  DESTINATION lib/cmake/${PROJECT_NAME}
-)
-
 ament_export_targets(${PROJECT_NAME}Targets)
 ament_export_include_directories(include)
-ament_export_dependencies(sm_common OpenCV)
+ament_export_dependencies(sm_common)
 
 ament_package()

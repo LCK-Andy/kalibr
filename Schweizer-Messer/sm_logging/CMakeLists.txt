@@ -31,7 +31,7 @@ target_include_directories(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
-  PUBLIC
+  PRIVATE
     Boost::system
     Boost::thread
     Boost::regex
@@ -53,13 +53,6 @@ install(DIRECTORY include/
   DESTINATION include
 )
 
-# Export targets
-install(EXPORT ${PROJECT_NAME}Targets
-  FILE ${PROJECT_NAME}Targets.cmake
-  NAMESPACE ${PROJECT_NAME}::
-  DESTINATION lib/cmake/${PROJECT_NAME}
-)
-
 #############
 ## Testing ##
 #############
@@ -78,9 +71,9 @@ if(BUILD_TESTING)
   endif()
 endif()
 
-ament_export_include_directories(include)
-ament_export_libraries(${PROJECT_NAME})
+# Export targets
 ament_export_targets(${PROJECT_NAME}Targets HAS_LIBRARY_TARGET)
+ament_export_include_directories(include)
 ament_export_dependencies(Boost)
 
 ament_package()

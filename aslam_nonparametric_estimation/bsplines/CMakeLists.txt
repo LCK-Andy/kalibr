@@ -8,12 +8,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 cmake_policy(SET CMP0167 OLD)
 
 find_package(ament_cmake REQUIRED)
+# Find external dependencies FIRST before importing targets that depend on them
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(TBB REQUIRED)
+find_package(Eigen3 REQUIRED)
+
 find_package(sm_common REQUIRED)
 find_package(sm_timing REQUIRED)
 find_package(sm_eigen REQUIRED)
 find_package(sm_kinematics REQUIRED)
 find_package(sparse_block_matrix REQUIRED)
-find_package(Eigen3 REQUIRED)
 
 add_library(${PROJECT_NAME} 
   src/BSpline.cpp
